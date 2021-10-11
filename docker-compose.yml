@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  duckmaster:
+    image: ${DOCKER_REGISTRY-}duckmaster
+    build:
+      context: .
+      dockerfile: DuckMaster/Dockerfile
+    depends_on: 
+      - duckmaster.db
+  duckmaster.db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "MySTRONG!Passw0rd"
+    ports:
+      - 1433:1433
